@@ -10,7 +10,7 @@ FOLDER = "hasil"
 LOKASI_FILE = os.path.join(FOLDER, "hasil_lokasi.txt")
 
 # Geolocator
-geolocator = Nominatim(user_agent="location_tracker")
+geolocator = Nominatim(user_agent="location_tracker", timeout=10)
 
 @app.route('/')
 def home():
@@ -75,5 +75,8 @@ def simpan_hasil(data_dict, lat=None, lon=None, alamat=None):
 def ucapan():
     return render_template('ucapan.html')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
+
